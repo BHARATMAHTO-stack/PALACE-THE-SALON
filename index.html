@@ -387,17 +387,17 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="flex flex-col space-y-2">
               <label class="text-sm font-bold text-luxury-text">Full Name</label>
-              <input type="text" required placeholder="John Doe" class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
+              <input id="b-name" type="text" required placeholder="John Doe" class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
             </div>
             <div class="flex flex-col space-y-2">
               <label class="text-sm font-bold text-luxury-text">Phone Number</label>
-              <input type="tel" required placeholder="+91 00000 00000" class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
+              <input id="b-phone" type="tel" required placeholder="+91 00000 00000" class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
             </div>
           </div>
 
           <div class="flex flex-col space-y-2">
             <label class="text-sm font-bold text-luxury-text">Desired Service</label>
-            <select class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all appearance-none cursor-pointer">
+            <select id="b-service" class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all appearance-none cursor-pointer">
               <option value="" disabled selected>Select a treatment...</option>
               <optgroup label="Men's Services">
                 <option value="haircut">Signature Haircut</option>
@@ -417,11 +417,11 @@
           <div class="grid grid-cols-2 gap-6">
             <div class="flex flex-col space-y-2">
               <label class="text-sm font-bold text-luxury-text">Date</label>
-              <input type="date" required class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
+              <input id="b-date" type="date" required class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
             </div>
             <div class="flex flex-col space-y-2">
               <label class="text-sm font-bold text-luxury-text">Time</label>
-              <input type="time" required class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
+              <input id="b-time" type="time" required class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
             </div>
           </div>
 
@@ -481,7 +481,7 @@
   </footer>
 
   <!-- Floating WhatsApp Button -->
-  <a href="https://wa.me/917972248699" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 wa-pulse cursor-pointer">
+  <a href="https://wa.me/917972248699?text=Hello%20Palace%20The%20Salon!%20I%20would%20like%20to%20book%20an%20appointment." target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 wa-pulse cursor-pointer">
     <i data-lucide="message-circle" class="w-7 h-7"></i>
   </a>
 
@@ -526,10 +526,20 @@
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // Simple Form Submission Alert
+    // WhatsApp Web Submission
     document.getElementById('booking-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      alert("Excellent! Your booking request has been sent to Palace The Salon. We'll confirm your timing shortly.");
+      
+      const name = document.getElementById('b-name').value;
+      const phone = document.getElementById('b-phone').value;
+      const serviceElement = document.getElementById('b-service');
+      const service = serviceElement.options[serviceElement.selectedIndex].text;
+      const date = document.getElementById('b-date').value;
+      const time = document.getElementById('b-time').value;
+
+      const message = `Hello Palace The Salon, I would like to book an appointment!%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Service:* ${service}%0A*Date:* ${date}%0A*Time:* ${time}%0A%0APlease confirm my booking.`;
+      
+      window.open(`https://wa.me/917972248699?text=${message}`, '_blank');
       e.target.reset();
     });
   </script>
