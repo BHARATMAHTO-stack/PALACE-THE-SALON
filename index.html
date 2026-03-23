@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palace The Salon - Premium Grooming</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            luxury: {
+              bg: '#F6F8FA', 
+              card: '#FFFFFF',
+              text: '#2b3b65',
+              textMuted: '#6275a5',
+              gold: '#788ec8',
+              lightgold: '#9b91b7',
+              accent: '#495e96',
+              emerald: '#128C7E',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 10px 40px -10px rgba(43, 59, 101, 0.08)',
+            'hover': '0 20px 40px -10px rgba(43, 59, 101, 0.12)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #F6F8FA;
+      color: #2b3b65;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    
+    .nav-scrolled {
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+      color: #2b3b65 !important;
+    }
+
+    .nav-scrolled .nav-link {
+      color: #2b3b65;
+    }
+    .nav-scrolled .nav-logo {
+      color: #2b3b65;
+    }
+    .nav-scrolled .mobile-menu-icon {
+      color: #2b3b65;
+    }
+
+    .text-gradient {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      background-image: linear-gradient(to right, #788ec8, #495e96);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F6F8FA;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #495e96;
+      border-radius: 4px;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .delay-100 { transition-delay: 0.1s; }
+    .delay-200 { transition-delay: 0.2s; }
+
+    /* Parallax Image Restraint */
+    .img-hover-zoom {
+      overflow: hidden;
+    }
+    .img-hover-zoom img {
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .img-hover-zoom:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Pulse animation for WhatsApp */
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(18, 140, 126, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(18, 140, 126, 0); }
+      100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(18, 140, 126, 0); }
+    }
+    .wa-pulse {
+      animation: pulse-ring 2s infinite;
+    }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 bg-transparent py-6 text-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+      <a href="#" class="nav-logo text-2xl font-extrabold tracking-widest uppercase transition-colors duration-300">
+        Palace The <span class="text-luxury-gold">Salon</span>
+      </a>
+      
+      <div class="hidden md:flex items-center space-x-6">
+        <a href="#hero" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-luxury-gold transition-colors duration-300">Hero</a>
+        <a href="#services" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-luxury-gold transition-colors duration-300">Services</a>
+        <a href="#portfolio" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-luxury-gold transition-colors duration-300">Portfolio</a>
+        <a href="#contact" class="nav-link text-sm font-semibold uppercase tracking-wider hover:text-luxury-gold transition-colors duration-300">Contact</a>
+        <div class="flex items-center space-x-4 pl-4 border-l border-gray-200/20">
+          <a href="tel:+917972248699" class="px-7 py-3 bg-luxury-text text-white font-semibold rounded-full hover:bg-black transition-all transform hover:-translate-y-1 shadow-lg flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> Call Now</a>
+          <a href="#booking" class="px-7 py-3 bg-luxury-text text-white font-semibold rounded-full hover:bg-black transition-all transform hover:-translate-y-1 shadow-lg">Book Appointment</a>
+        </div>
+      </div>
+
+      <button id="mobile-menu-btn" class="md:hidden mobile-menu-icon transition-colors duration-300">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-white shadow-xl flex flex-col items-center py-6 space-y-4 border-t border-gray-100">
+      <a href="#hero" class="mobile-link text-luxury-text font-semibold uppercase tracking-wide">Hero</a>
+      <a href="#services" class="mobile-link text-luxury-text font-semibold uppercase tracking-wide">Services</a>
+      <a href="#portfolio" class="mobile-link text-luxury-text font-semibold uppercase tracking-wide">Portfolio</a>
+      <a href="#contact" class="mobile-link text-luxury-text font-semibold uppercase tracking-wide">Contact</a>
+      <div class="flex flex-col space-y-3 w-full px-6 pt-4 mt-2 border-t border-gray-50">
+        <a href="tel:+917972248699" class="mobile-link w-full py-4 bg-luxury-text text-white font-semibold rounded-full flex justify-center items-center shadow-md"><i data-lucide="phone" class="w-4 h-4 mr-2"></i> Call Now</a>
+        <a href="#booking" class="mobile-link w-full py-4 bg-luxury-text text-white font-semibold rounded-full flex justify-center items-center shadow-md">Book Appointment</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative h-screen flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=2000&auto=format&fit=crop'); background-attachment: fixed;">
+    <div class="absolute inset-0 z-0 bg-black/50"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto mt-20">
+      
+      <!-- Floating Review Badge -->
+      <div class="fade-up visible inline-flex items-center bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2 mb-8 mx-auto self-center">
+        <div class="flex text-luxury-gold mr-2">
+          <i data-lucide="star" class="w-4 h-4 fill-current border-none"></i>
+        </div>
+        <span class="text-white text-sm font-medium tracking-wide">4.9/5 from 1,000+ Clients</span>
+      </div>
+      
+      <h1 class="fade-up delay-100 visible text-5xl md:text-7xl lg:text-8xl font-extrabold mb-6 leading-[1.1] tracking-tight text-white drop-shadow-lg">
+        Elevate Your <br /> Everyday Elegance
+      </h1>
+      
+      <p class="fade-up delay-200 visible text-white/90 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10 drop-shadow-md">
+        Where timeless techniques meet contemporary grooming. Experience the ultimate transformation at Pune's premier destination.
+      </p>
+
+      <div class="fade-up delay-200 visible flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <a href="#booking" class="px-8 py-4 bg-white text-luxury-text font-bold rounded-full hover:bg-gray-100 transition-all transform hover:-translate-y-1 shadow-xl w-full sm:w-auto text-center">
+          Secure Your Spot
+        </a>
+        <a href="tel:+917972248699" class="px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-full hover:bg-white hover:text-luxury-text transition-all w-full sm:w-auto flex items-center justify-center">
+          <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Call Now
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SaaS Style Services Grid -->
+  <section id="services" class="py-24 bg-luxury-bg relative">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="mb-16 text-center fade-up">
+        <span class="text-luxury-gold uppercase tracking-widest text-sm font-bold">Curated Services</span>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-luxury-text mt-4">Expert Styling for All</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Service Card 1 -->
+        <div class="fade-up bg-luxury-card rounded-3xl shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 flex flex-col h-full img-hover-zoom group cursor-pointer">
+          <div class="h-48 w-full rounded-t-3xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
+              <i data-lucide="scissors" class="text-luxury-text w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-luxury-text mb-2">Signature Haircut</h3>
+            <p class="text-luxury-textMuted text-sm leading-relaxed mb-6">Expert consultation followed by a precision cut tailored entirely to your distinct aesthetic.</p>
+            <a href="#booking" class="mt-auto inline-flex items-center text-luxury-text font-bold text-sm uppercase tracking-wide group-hover:text-luxury-gold transition-colors">
+              Book Service <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="fade-up delay-100 bg-luxury-card rounded-3xl shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 flex flex-col h-full img-hover-zoom group cursor-pointer">
+          <div class="h-48 w-full rounded-t-3xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1621607512214-68297480165e?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
+              <i data-lucide="user" class="text-luxury-text w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-luxury-text mb-2">Beard Sculpting</h3>
+            <p class="text-luxury-textMuted text-sm leading-relaxed mb-6">Hot towel prep, straight razor lining, and precise shaping to redefine your jawline.</p>
+            <a href="#booking" class="mt-auto inline-flex items-center text-luxury-text font-bold text-sm uppercase tracking-wide group-hover:text-luxury-gold transition-colors">
+              Book Service <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="fade-up delay-200 bg-luxury-card rounded-3xl shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 flex flex-col h-full img-hover-zoom group cursor-pointer">
+          <div class="h-48 w-full rounded-t-3xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
+              <i data-lucide="droplet" class="text-luxury-text w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-luxury-text mb-2">Color Alchemy</h3>
+            <p class="text-luxury-textMuted text-sm leading-relaxed mb-6">Subtle grey blending or bold transformations using premium, scalp-friendly pigment technology.</p>
+            <a href="#booking" class="mt-auto inline-flex items-center text-luxury-text font-bold text-sm uppercase tracking-wide group-hover:text-luxury-gold transition-colors">
+              Book Service <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="fade-up delay-100 bg-luxury-card rounded-3xl shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 flex flex-col h-full img-hover-zoom group cursor-pointer">
+          <div class="h-48 w-full rounded-t-3xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1516975080661-46497fba13f2?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
+              <i data-lucide="sparkles" class="text-luxury-text w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-luxury-text mb-2">Skin Protocol</h3>
+            <p class="text-luxury-textMuted text-sm leading-relaxed mb-6">Intense cleansing, exfoliation, and targeted hydration masks. Includes our signature De-Tan therapy.</p>
+            <a href="#booking" class="mt-auto inline-flex items-center text-luxury-text font-bold text-sm uppercase tracking-wide group-hover:text-luxury-gold transition-colors">
+              Book Service <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service Card 5 -->
+        <div class="fade-up bg-luxury-card rounded-3xl shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 flex flex-col h-full img-hover-zoom group cursor-pointer">
+          <div class="h-48 w-full rounded-t-3xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
+              <i data-lucide="scissors" class="text-luxury-text w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-luxury-text mb-2">Women's Styling</h3>
+            <p class="text-luxury-textMuted text-sm leading-relaxed mb-6">Bespoke cuts, master blowouts, and elegant styling tailored to your unique facial structure.</p>
+            <a href="#booking" class="mt-auto inline-flex items-center text-luxury-text font-bold text-sm uppercase tracking-wide group-hover:text-luxury-gold transition-colors">
+              Book Service <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service Card 6 -->
+        <div class="fade-up delay-100 bg-luxury-card rounded-3xl shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 flex flex-col h-full img-hover-zoom group cursor-pointer">
+          <div class="h-48 w-full rounded-t-3xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1512496015851-a1fbbf697a39?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
+              <i data-lucide="star" class="text-luxury-text w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-luxury-text mb-2">Bridal & Glamour</h3>
+            <p class="text-luxury-textMuted text-sm leading-relaxed mb-6">Flawless HD makeup and intricate hair designs for your most important moments.</p>
+            <a href="#booking" class="mt-auto inline-flex items-center text-luxury-text font-bold text-sm uppercase tracking-wide group-hover:text-luxury-gold transition-colors">
+              Book Service <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service Card 7 -->
+        <div class="fade-up delay-200 bg-luxury-card rounded-3xl shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 flex flex-col h-full img-hover-zoom group cursor-pointer">
+          <div class="h-48 w-full rounded-t-3xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
+              <i data-lucide="sparkles" class="text-luxury-text w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-luxury-text mb-2">Premium Keratin</h3>
+            <p class="text-luxury-textMuted text-sm leading-relaxed mb-6">Transform frizz into liquid silk. Restorative treatments using world-class protein bounds.</p>
+            <a href="#booking" class="mt-auto inline-flex items-center text-luxury-text font-bold text-sm uppercase tracking-wide group-hover:text-luxury-gold transition-colors">
+              Book Service <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Service Card 8 -->
+        <div class="fade-up delay-100 bg-luxury-card rounded-3xl shadow-soft hover:shadow-hover transition-all duration-300 hover:-translate-y-2 flex flex-col h-full img-hover-zoom group cursor-pointer">
+          <div class="h-48 w-full rounded-t-3xl overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover">
+            <div class="absolute top-4 right-4 bg-white rounded-full p-2 shadow-md">
+              <i data-lucide="heart" class="text-luxury-text w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-xl font-bold text-luxury-text mb-2">Luxury Mani-Pedi</h3>
+            <p class="text-luxury-textMuted text-sm leading-relaxed mb-6">Ultimate relaxation and pristine nail shaping, finished with chip-resistant gel polish.</p>
+            <div class="mt-auto inline-flex items-center text-luxury-text font-bold text-sm uppercase tracking-wide group-hover:text-luxury-gold transition-colors">
+              Book Service <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio Section -->
+  <section id="portfolio" class="py-24 bg-white relative">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="mb-16 text-center fade-up">
+        <span class="text-luxury-gold uppercase tracking-widest text-sm font-bold">Our Work</span>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-luxury-text mt-4">Portfolio</h2>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div class="overflow-hidden rounded-2xl fade-up border border-gray-100 shadow-sm shadow-soft">
+          <img src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?q=80&w=800&auto=format&fit=crop" class="w-full h-64 md:h-80 object-cover hover:scale-110 transition-transform duration-700">
+        </div>
+        <div class="overflow-hidden rounded-2xl fade-up delay-100 border border-gray-100 shadow-sm shadow-soft">
+          <img src="https://images.unsplash.com/photo-1521590832167-7bfcfaa6362f?q=80&w=800&auto=format&fit=crop" class="w-full h-64 md:h-80 object-cover hover:scale-110 transition-transform duration-700">
+        </div>
+        <div class="overflow-hidden rounded-2xl fade-up delay-200 border border-gray-100 shadow-sm shadow-soft">
+          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=800&auto=format&fit=crop" class="w-full h-64 md:h-80 object-cover hover:scale-110 transition-transform duration-700">
+        </div>
+        <div class="overflow-hidden rounded-2xl fade-up border border-gray-100 shadow-sm shadow-soft">
+          <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?q=80&w=800&auto=format&fit=crop" class="w-full h-64 md:h-80 object-cover hover:scale-110 transition-transform duration-700">
+        </div>
+        <div class="overflow-hidden rounded-2xl fade-up delay-100 border border-gray-100 shadow-sm shadow-soft">
+          <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=800&auto=format&fit=crop" class="w-full h-64 md:h-80 object-cover hover:scale-110 transition-transform duration-700">
+        </div>
+        <div class="overflow-hidden rounded-2xl fade-up delay-200 border border-gray-100 shadow-sm shadow-soft">
+          <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?q=80&w=800&auto=format&fit=crop" class="w-full h-64 md:h-80 object-cover hover:scale-110 transition-transform duration-700">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Details (Multi-step reformatted) -->
+  <section id="booking" class="py-24 bg-luxury-bg border-t border-gray-200 flex justify-center items-center relative overflow-hidden">
+    <!-- Background Decor -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-luxury-gold/5 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-luxury-gold/5 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+
+    <div class="w-full max-w-3xl px-6 md:px-12 relative z-10">
+      <div class="mb-12 text-center fade-up">
+        <span class="text-luxury-gold uppercase tracking-widest text-sm font-bold">Secure Your Appointment</span>
+        <h2 class="text-4xl md:text-5xl font-extrabold text-luxury-text mt-4">Book Your Visit</h2>
+      </div>
+
+      <div class="fade-up delay-100 bg-white rounded-[2rem] p-8 md:p-12 shadow-hover relative overflow-hidden border border-gray-100">
+        
+        <form id="booking-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex flex-col space-y-2">
+              <label class="text-sm font-bold text-luxury-text">Full Name</label>
+              <input type="text" required placeholder="John Doe" class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
+            </div>
+            <div class="flex flex-col space-y-2">
+              <label class="text-sm font-bold text-luxury-text">Phone Number</label>
+              <input type="tel" required placeholder="+91 00000 00000" class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
+            </div>
+          </div>
+
+          <div class="flex flex-col space-y-2">
+            <label class="text-sm font-bold text-luxury-text">Desired Service</label>
+            <select class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all appearance-none cursor-pointer">
+              <option value="" disabled selected>Select a treatment...</option>
+              <optgroup label="Men's Services">
+                <option value="haircut">Signature Haircut</option>
+                <option value="beard">Beard Sculpting</option>
+                <option value="color">Color Alchemy</option>
+                <option value="skin">Skin Protocol & De-Tan</option>
+              </optgroup>
+              <optgroup label="Women's Services">
+                <option value="womens_styling">Women's Styling & Blowout</option>
+                <option value="bridal">Bridal & Glamour</option>
+                <option value="keratin">Premium Keratin</option>
+                <option value="manipedi">Luxury Mani-Pedi</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="grid grid-cols-2 gap-6">
+            <div class="flex flex-col space-y-2">
+              <label class="text-sm font-bold text-luxury-text">Date</label>
+              <input type="date" required class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
+            </div>
+            <div class="flex flex-col space-y-2">
+              <label class="text-sm font-bold text-luxury-text">Time</label>
+              <input type="time" required class="bg-luxury-bg border border-gray-200 rounded-xl p-4 text-luxury-text focus:border-luxury-gold focus:ring-2 focus:ring-luxury-gold/20 outline-none transition-all" />
+            </div>
+          </div>
+
+          <button type="submit" class="w-full mt-6 px-8 py-5 bg-luxury-text text-white font-bold rounded-xl hover:bg-black transition-all transform hover:-translate-y-1 shadow-lg flex justify-center items-center group">
+            Confirm Booking Request <i data-lucide="arrow-right" class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"></i>
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-luxury-text pt-24 pb-12 text-white">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 fade-up">
+      <div class="col-span-1 md:col-span-2">
+        <a href="#" class="text-3xl font-extrabold tracking-widest uppercase inline-block mb-6">
+          Palace The <span class="text-luxury-gold">Salon</span>
+        </a>
+        <p class="text-gray-400 max-w-sm leading-relaxed mb-8">
+          Elevating men's grooming in Koregaon Park. Professional styling, premium treatments, and an unparalleled luxurious environment.
+        </p>
+        <div class="flex space-x-4">
+          <a href="https://www.instagram.com/palacethesalon/?utm_source=ig_web_button_share_sheet" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-luxury-gold hover:text-luxury-text transition-colors">
+            <i data-lucide="instagram" class="w-5 h-5"></i>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-luxury-gold hover:text-luxury-text transition-colors">
+            <i data-lucide="facebook" class="w-5 h-5"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="font-bold mb-6 tracking-wider uppercase text-sm text-luxury-gold">Visit Us</h4>
+        <p class="text-gray-400 text-sm leading-relaxed mb-4">1st Floor, North Main Road, above Zodiac, <br/>Lane 6, Ganga Fortune Society, <br/>Meera Nagar, Koregaon Park, Pune</p>
+        <div class="flex items-center text-white font-medium hover:text-luxury-gold transition-colors cursor-pointer">
+          <i data-lucide="map-pin" class="w-4 h-4 mr-2 text-luxury-gold"></i> Get Directions
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="font-bold mb-6 tracking-wider uppercase text-sm text-luxury-gold">Contact</h4>
+        <ul class="space-y-4 text-gray-400 text-sm">
+          <li class="flex items-center"><i data-lucide="phone" class="w-4 h-4 mr-3"></i> +91 79722 48699</li>
+          <li class="flex items-center"><i data-lucide="clock" class="w-4 h-4 mr-3"></i> Mon-Sun: 10AM - 9PM</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-6 md:px-12 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+      <p>&copy; 2026 Palace The Salon. All rights reserved.</p>
+      <div class="flex space-x-6 mt-4 md:mt-0">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/917972248699" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300 wa-pulse cursor-pointer">
+    <i data-lucide="message-circle" class="w-7 h-7"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script>
+    // Initialize Icons
+    lucide.createIcons();
+
+    // Scroll Navbar Effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('nav-scrolled');
+        navbar.classList.remove('bg-transparent', 'text-white', 'py-6');
+        navbar.classList.add('py-4');
+      } else {
+        navbar.classList.remove('nav-scrolled', 'py-4');
+        navbar.classList.add('bg-transparent', 'text-white', 'py-6');
+      }
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Simple Form Submission Alert
+    document.getElementById('booking-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert("Excellent! Your booking request has been sent to Palace The Salon. We'll confirm your timing shortly.");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
